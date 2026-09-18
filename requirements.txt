@@ -1,0 +1,5 @@
+fonttools[woff]>=4.50
+fontmake>=3.9
+ufoLib2>=0.16
+shapely>=2.0
+pillow>=10.0

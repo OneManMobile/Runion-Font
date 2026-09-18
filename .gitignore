@@ -1,0 +1,7 @@
+.venv/
+.venv-qa/
+__pycache__/
+*.pyc
+out/
+.claude/
+.DS_Store

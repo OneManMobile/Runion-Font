@@ -1,0 +1,187 @@
+# ─────────────────────────────────────────────────────────────────────
+#  RUNION BASIC — glyph source
+# ─────────────────────────────────────────────────────────────────────
+#  The whole font lives on ONE grid of 3 × 7 points:
+#
+#        x:  0   1   2
+#   y=6      ·   ·   ·     top
+#   y=5      ·   ·   ·
+#   y=4      ·   ·   ·
+#   y=3      ·   ·   ·     middle
+#   y=2      ·   ·   ·
+#   y=1      ·   ·   ·
+#   y=0      ·   ·   ·     baseline
+#
+#  point    = "xy"            e.g. 06 = top-left, 20 = bottom-right
+#  stroke   = points joined by "-" (a polyline, corners are mitred)
+#             first == last  → closed shape
+#             a lone point   → a dot
+#  RULE     : every letter and digit must touch x=0 AND x=2.
+#  MARKS    : accents live outside the rune — two attic rows above (y = 7, 8) and
+#             two cellar rows below (y = a, b  →  -1, -2). Every rune fills the same
+#             box, so one mark position fits them all; accented letters (é ñ š ő …)
+#             are never drawn: the build composes them from Unicode, rune + mark.
+#  CAPITALS : never drawn separately — an UPPERCASE character reuses the
+#             same dots and lines, traced with the heavier @cap_stroke.
+#
+#  line format:   name | characters | strokes
+#  characters :   space separated · "t+h" = contraction (ligature, always on)
+#                 "a~e" = optional contraction (OpenType ss01, off by default)
+#                 "~ü"  = optional single swap (ss01): ü shows this rune instead
+#                 U+XXXX allowed for awkward characters
+#  strokes    :   "=name" reuses the strokes of a glyph defined above
+# ─────────────────────────────────────────────────────────────────────
+
+# ── settings ── one stroke width for everything; CAPITALS get a heavier one ──
+@stroke      50
+@cap_stroke  74
+@charset     charsets/GF_Latin_Core.txt
+
+.notdef   |                 | 00-06-26-20-00 00-26
+space     | U+0020          |
+uni00A0   | U+00A0          |
+
+# ── Elder Futhark ── the 24 ─────────────────────────────────────────
+fehu      | f F ᚠ           | 00-06 04-26 02-24
+uruz      | u U ᚢ           | 00-06-24-20
+thurisaz  | t+h þ Þ ᚦ       | 00-06 05-23-01
+ansuz     | a A ᚨ           | 00-06-24 04-22
+raido     | r R ᚱ           | 00-06-24-03-20
+kaunan    | k K ᚲ           | 26-03-20
+gebo      | g G ᚷ           | 06-20 00-26
+wunjo     | w W ᚹ           | 00-06-24-03
+hagalaz   | h H ᚺ ᚻ         | 00-06 20-26 04-22
+naudiz    | n N ᚾ           | 10-16 04-22
+isa       | i I ı ᛁ         | 06-26 16-10 00-20
+jera      | j J ȷ ᛃ         | 16-04-12 14-22-10
+eihwaz    | y Y ~ü ᛇ        | 02-10-16-24
+perthro   | p P ᛈ           | 26-14-06-00-12-20
+algiz     | z Z ᛉ           | 10-16 06-13-26
+sowilo    | s S ᛊ ᛋ         | 26-04-22-00
+tiwaz     | t T ᛏ           | 10-16 04-16-24
+berkanan  | b B ᛒ           | 00-06-24-03-22-00
+ehwaz     | e E ᛖ           | 00-06-14-26-20
+mannaz    | m M ᛗ           | 00-06-24 20-26-04
+laguz     | l L ᛚ           | 00-06-24
+ingwaz    | n+g ŋ Ŋ ᛜ ᛝ     | 16-23-10-03-16
+dagaz     | d D ᛞ           | 00-06 20-26 04-22 02-24
+othala    | o O ᛟ           | 00-24-16-04-20
+
+# ── Latin gaps ── borrowed from later rune rows / invented on-grid ──
+#   c = cen ᚳ (Anglo-Saxon) · q = invented: algiz forked at both ends, echoing the
+#   Anglo-Saxon k-runes ᛣ ᛤ (the true q-rune cweorth ᛢ needs five columns) · v, x = invented
+cen       | c C ᚳ           | 00-06 03-21
+qfork     | q Q             | 10-16 06-14-26 00-12-20
+vend      | v V             | 06-10-26
+iks       | x X             | 10-16 04-22 02-24
+
+# ── Nordic ── made the medieval way: take a rune, strike it, or add to it ──
+#   æ = ᛅ, the later Scandinavian a/æ rune: a stave struck by a rising stroke
+#   ø = ᚯ, the medieval ø rune: the same stave struck twice   (ä ö share æ ø)
+#       alt ø, o with a bar through its diamond:  00-24-16-04-20 04-24
+#   å = "double a": ansuz with a third arm          (aa contracts to it)
+#   ð = þ with a bar
+#   ß = the older four-stroke Σ form of sowilo · ħ ł = h, l with one more stroke
+#   ä ö ü are composed (rune + dots) like every accented letter; with ss01 they
+#   become the sound-runes instead: ä → æ, ö → ø, ü → y — as medieval carvers wrote them
+ae        | æ Æ ~ä a~e ᛅ    | 10-16 02-24
+oslash    | ø Ø œ Œ ~ö o~e ᚯ | 10-16 03-25 01-23
+aring     | å Å a+a         | 00-06-24 04-22 02-20
+eth       | ð Ð đ Đ ᚧ       | 00-06 05-23-01 03-23
+germandbls| ß ẞ             | 26-04-23-02-20
+hbar      | ħ Ħ             | =hagalaz 05-25
+lslash    | ł Ł             | =laguz 01-23
+
+# ── Numbers ── invented, same grid, same rules ──────────────────────
+zero      | 0               | 10-01-05-16-25-21-10
+one       | 1               | 05-16-10 00-20
+two       | 2               | 06-26-24-02-00-20
+three     | 3               | 06-26-13-20-00
+four      | 4               | 20-26-02-22
+five      | 5               | 26-06-04-22-20-00
+six       | 6               | 26-04-00-20-22-04
+seven     | 7               | 06-26-00
+eight     | 8               | 06-26-00-20-06
+nine      | 9               | 00-22-26-06-04-22
+
+# ── Symbols ── first handful, more as we progress ───────────────────
+period    | .               | 10
+comma     | , ‚             | 11-00
+colon     | : ᛬             | 12 14
+semicolon | ;               | 14 12-01
+exclam    | !               | 16-12 10
+question  | ?               | 05-16-25-13-12 10
+hyphen    | - − U+2013 U+2014 | 03-23
+underscore| _               | 00-20
+plus      | +               | 03-23 12-14
+equal     | =               | 02-22 04-24
+slash     | /               | 00-26
+backslash | \               | 06-20
+quotesingle | '             | 16-14
+quotedbl  | "               | 06-04 26-24
+parenleft | (               | 26-04-02-20
+parenright| )               | 06-24-22-00
+bracketleft  | [            | 26-06-00-20
+bracketright | ]            | 06-26-20-00
+less      | <               | 25-03-21
+greater   | >               | 05-23-01
+asterisk  | *               | 05-23 03-25 13-15
+numbersign| U+0023          | 00-06 20-26 02-22 04-24
+runedot   | ᛫ ·             | 13
+runecross | ᛭ ×             | 02-24 04-22
+
+# ── Symbols, second batch ───────────────────────────────────────────
+bar        | U+007C         | 10-16
+asciicircum| ^              | 04-16-24
+grave      | `              | 06-15
+asciitilde | ~              | 03-14-12-23
+degree     | °              | 16-25-14-05-16
+divide     | ÷              | 03-23 14 12
+percent    | %              | 00-26 05 21
+ampersand  | &              | 23-05-16-25-03-01-10-21
+at         | @              | 12-14-24-25-16-05-01-10-21
+braceleft  | {              | 26-15-14-03-12-11-20
+braceright | }              | 06-15-14-23-12-11-00
+exclamdown | ¡              | 16 14-10
+questiondown | ¿            | 21-10-01-13-14 16
+dollar     | $              | 26-04-22-00 10-16
+cent       | ¢              | 25-03-21 11-15
+sterling   | £              | 25-16-10 00-20 03-23
+yen        | ¥              | 06-13-26 13-10 02-22 01-21
+euro       | €              | 26-03-20 04-14 02-12
+section    | §              | 26-05-23 03-21-00
+paragraph  | ¶              | 20-26-06-04-13 10-16
+copyright  | ©              | 06-26 25-03-21 00-20
+registered | ®              | 06-26 01-05-24-03-21 00-20
+trademark  | ™              | 14-16 05-16-25 00-03-21 20-23-01
+bullet     | •              | 14-23-12-03-14
+ellipsis   | …              | 00 10 20
+dottedcircle | ◌            | 10 01 03 05 16 25 23 21
+quoteleft  | ‘              | 06-14
+quoteright | ’              | 26-14
+quotedblleft  | “           | 06-14 16-24
+quotedblright | ”           | 16-04 26-14
+quotedblbase  | „           | 11-00 21-10
+guilsinglleft | ‹           | 24-03-22
+guilsinglright| ›           | 04-23-02
+guillemetleft | «           | 14-03-12 24-13-22
+guillemetright| »           | 04-13-02 14-23-12
+ordfeminine   | ª           | 03-06-25 05-24 02-22
+ordmasculine  | º           | 16-25-14-05-16 02-22
+
+# ── Marks ── attic rows 7–8, cellar rows a–b · each line gives the spacing accent
+#    and its combining twin (U+03xx); the build makes the twin zero-width ────────
+acute         | ´ U+0301    | 17-28
+gravecomb     | U+0300      | 08-17
+circumflex    | ˆ U+0302    | 07-18-27
+caron         | ˇ U+030C    | 08-17-28
+tilde         | ˜ U+0303    | 07-18-17-28
+dieresis      | ¨ U+0308    | 07 27
+macron        | ¯ U+0304    | 07-27
+breve         | ˘ U+0306    | 08-07-27-28
+dotaccent     | ˙ U+0307    | 17
+ring          | ˚ U+030A    | 07-18-27-07
+hungarumlaut  | ˝ U+030B    | 07-18 17-28
+cedilla       | ¸ U+0327    | 1a-2b-0b
+ogonek        | ˛ U+0328    | 1a-0b-2b
+commabelow    | U+0326      | 1a-0b

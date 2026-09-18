@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="section" format="2">
+  <advance width="400"/>
+  <unicode hex="00A7"/>
+  <outline>
+    <contour>
+      <point x="55" y="615" type="line"/>
+      <point x="310" y="360" type="line"/>
+      <point x="345" y="360" type="line"/>
+      <point x="345" y="395" type="line"/>
+      <point x="122" y="618" type="line"/>
+      <point x="345" y="730" type="line"/>
+      <point x="345" y="770" type="line"/>
+      <point x="314" y="770" type="line"/>
+      <point x="55" y="640" type="line"/>
+    </contour>
+    <contour>
+      <point x="55" y="40" type="line"/>
+      <point x="55" y="0" type="line"/>
+      <point x="86" y="0" type="line"/>
+      <point x="345" y="130" type="line"/>
+      <point x="345" y="155" type="line"/>
+      <point x="90" y="410" type="line"/>
+      <point x="55" y="410" type="line"/>
+      <point x="55" y="375" type="line"/>
+      <point x="278" y="152" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runion Basic</title>
+<style>
+  :root { --paper:#f4f0e8; --ink:#181614; --soft:#8b8377; --line:#d9d2c4; --accent:#c44830; --card:#fbf9f4; }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#151412; --ink:#ece6da; --soft:#8b8377; --line:#34302a; --accent:#e8694c; --card:#1d1b18; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 ui-monospace, Menlo, monospace; }
+  main { max-width:1080px; margin:0 auto; padding:48px 16px 96px; }
+  h1 { font:400 clamp(44px, 11vw, 120px)/1 "Runion Basic"; margin:0 0 12px; letter-spacing:.02em; }
+  h2 { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); font-weight:400;
+       margin:64px 0 16px; padding-top:16px; border-top:1px solid var(--line); }
+  p { max-width:62ch; margin:0 0 12px; } .soft { color:var(--soft); }
+  .rune { font-family:"Runion Basic"; }
+  #tester { display:block; width:100%; padding:12px 14px; border:1px solid var(--line); background:var(--card); color:var(--ink);
+            font:16px/1.5 ui-monospace, Menlo, monospace; outline:none; resize:vertical; border-radius:4px; }
+  #tester:focus { border-color:var(--accent); }
+  .runes { font:400 72px/1.5 "Runion Basic"; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .runes.plain { font-variant-ligatures:none; }
+  #out { margin-top:12px; padding:24px 20px; min-height:1.7em; border:1px solid var(--line); background:var(--card); border-radius:4px; }
+  .runes .w { display:inline-block; white-space:nowrap; }
+  .runes .cl { display:inline-block; text-align:center; vertical-align:top; }
+  .runes .l { display:block; margin:6px 0 10px; color:var(--soft); white-space:pre;
+              font:400 11px/1.2 ui-monospace, Menlo, monospace; font-feature-settings:normal; }
+  .show { font-size:54px; display:flex; flex-wrap:wrap; gap:8px; }
+  .show .cl { min-width:58px; padding:12px 8px 0; border:1px solid var(--line); background:var(--card); border-radius:4px; cursor:pointer; }
+  .show .cl:hover { border-color:var(--accent); } .show .l { font-size:12px; color:var(--ink); }
+  .bar { display:flex; flex-wrap:wrap; gap:8px 24px; align-items:center; margin:12px 0; color:var(--soft); font-size:13px; }
+  .bar input[type=range] { width:180px; accent-color:var(--accent); }
+  .bar label { display:flex; gap:8px; align-items:center; cursor:pointer; }
+  .lab { display:grid; grid-template-columns:minmax(200px, 300px) 1fr; gap:32px; align-items:start; }
+  @media (max-width:640px) { .lab { grid-template-columns:1fr; } #out { font-size:44px; } }
+  #stage { width:100%; background:var(--card); border:1px solid var(--line); border-radius:4px; touch-action:manipulation; }
+  #stage .hit { fill:transparent; cursor:pointer; } #stage .hit:hover + circle { r:16; fill:var(--accent); }
+  #code { display:block; width:100%; padding:10px 12px; border:1px solid var(--line); background:var(--card); color:var(--ink);
+          font:14px ui-monospace, Menlo, monospace; border-radius:4px; }
+  button { font:inherit; font-size:13px; padding:6px 12px; border:1px solid var(--line); background:var(--card); color:var(--ink);
+           border-radius:4px; cursor:pointer; } button:hover { border-color:var(--accent); color:var(--accent); }
+  .ok { color:var(--soft); } .bad { color:var(--accent); }
+  .group { font-size:12px; color:var(--soft); margin:28px 0 10px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(84px, 1fr)); gap:8px; }
+  .cell { border:1px solid var(--line); background:var(--card); border-radius:4px; padding:10px 6px 6px; text-align:center; cursor:pointer; }
+  .cell:hover, .cell.on { border-color:var(--accent); } .cell svg { width:100%; height:auto; display:block; }
+  .cell b { display:block; font-weight:400; font-size:13px; margin-top:6px; } .cell i { display:block; font-style:normal; font-size:10px; color:var(--soft); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Runion Basic</h1>
+  <p class="soft">Elder Futhark, rebuilt on a grid of 3 × 7 dots. Straight lines only, dot to dot. Monospace, narrow, tall — and every letter fills the full width of its cell. One stroke width for everything; CAPITALS are the very same runes traced with a heavier line. Accents live outside the rune, two rows above and two below.</p>
+
+  <h2>Type</h2>
+  <textarea id="tester" rows="3" spellcheck="false" autocomplete="off" placeholder="Type anything here…">The North Wind sings through the Stones
+Rødgrød med fløde på Ærø
+Où est le café? Příliš žluťoučký kůň</textarea>
+  <div id="out" class="runes"></div>
+  <div class="bar">
+    <label>size <input id="size" type="range" min="20" max="200" value="72"></label>
+    <label><input id="sub" type="checkbox" checked> letters underneath</label>
+    <label><input id="liga" type="checkbox" checked> contractions  (th ng aa)</label>
+    <label><input id="nordic" type="checkbox"> nordic°  (ae oe)</label>
+  </div>
+
+  <h2>All characters</h2>
+  <p class="soft">Everything the font answers to, set in the font itself. The small label is what you type. Click one to open it on the grid below.</p>
+  <div id="showcase"></div>
+
+  <h2>The grid — click dots to draw</h2>
+  <div class="lab">
+    <svg id="stage"></svg>
+    <div>
+      <p>Pick any glyph below to load it, or draw your own: click a dot to start a line, keep clicking to continue it. Click the last dot again to end the stroke (that also makes a lone dot).</p>
+      <p class="soft">A point is written <b>xy</b> — column, then row. <b>06</b> is top-left, <b>20</b> bottom-right. Lines join points with a dash. That string is the entire definition of a glyph.</p>
+      <input id="code" spellcheck="false" placeholder="00-06 04-26 02-24">
+      <div class="bar">
+        <button id="undo">undo point</button><button id="clear">clear</button><button id="copy">copy</button>
+        <span id="rule"></span>
+      </div>
+      <div class="bar">
+        <label>stroke <input id="pen" type="range" min="20" max="130" step="2"> <span id="penv"></span></label>
+        <button id="penreg">regular</button><button id="pencap">capital</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>Glyphs</h2>
+  <div id="glyphs"></div>
+</main>
+<script>document.write('<script src="specimen/data.js?v=' + Date.now() + '"><\/script>');</script>
+<script src="specimen/app.js"></script>
+</body>
+</html>
