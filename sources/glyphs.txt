@@ -76,14 +76,14 @@ vend      | v V             | 06-10-26
 iks       | x X             | 10-16 04-22 02-24
 
 # ── Nordic ── made the medieval way: take a rune, strike it, or add to it ──
-#   æ = ᛅ, the later Scandinavian a/æ rune: a stave struck by a rising stroke
+#   æ = ᛅ, the Younger Futhark ár rune (a/æ) — itself the descendant of jera ᛃ
 #   ø = ᚯ, the medieval ø rune: the same stave struck twice   (ä ö share æ ø)
 #       alt ø, o with a bar through its diamond:  00-24-16-04-20 04-24
 #   å = "double a": ansuz with a third arm          (aa contracts to it)
 #   ð = þ with a bar
 #   ß = the older four-stroke Σ form of sowilo · ħ ł = h, l with one more stroke
 #   ä ö ü are composed (rune + dots) like every accented letter; with ss01 they
-#   become the sound-runes instead: ä → æ, ö → ø, ü → y — as medieval carvers wrote them
+#   become the sound-runes instead: ä → æ, ö → ø as medieval carvers wrote them (ü → y by analogy)
 ae        | æ Æ ~ä a~e ᛅ    | 10-16 02-24
 oslash    | ø Ø œ Œ ~ö o~e ᚯ | 10-16 03-25 01-23
 aring     | å Å a+a         | 00-06-24 04-22 02-20
