@@ -101,6 +101,10 @@ make test     # fontbakery, Google Fonts profile
 
 To change a glyph, edit its line in `glyphs.txt` and run `make build`. The sketchpad in the playground writes the stroke code for you.
 
+## How it was made
+
+Runion Basic was made with AI. I worked with Claude, Anthropic's AI model, in Claude Code. I set the concept and the rules: the dot grid, full-width letters, one stroke width, heavier capitals, the rows for accents. I decided what to keep and what to change, and reviewed the results as we went. Claude drew the glyph constructions on the grid, wrote the build code and the playground, researched the history and drafted this README. No existing font data or outlines were used. Every outline is generated from `sources/glyphs.txt`.
+
 ## Licence
 
 Copyright 2026 The Runion Basic Project Authors (https://github.com/OneManMobile/Runion-Font).
